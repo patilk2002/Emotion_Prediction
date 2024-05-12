@@ -47,18 +47,18 @@ def plot_mouse_tracking(label, mouse_data_list, timestamp):
     cor_x = [point["x"] for point in mouse_data_list]
     cor_y = [700-point["y"] for point in mouse_data_list]
 
-    folder_path = os.path.join("static", "graphs", label)
-    os.makedirs(folder_path, exist_ok=True)  # Create folder if it doesn't exist
+    # folder_path = os.path.join("static", "graphs", label)
+    # os.makedirs(folder_path, exist_ok=True)  # Create folder if it doesn't exist
 
-    plt.plot(cor_x, cor_y)
-    plt.title("Mouse Tracking")
-    plt.xlabel("X-coordinate")
-    plt.ylabel("Y-coordinate")
-    plt.xlim([0, 1600])
-    plt.ylim([0, 700])
-    graph_path = os.path.join(folder_path, f"{label}_{timestamp}_graph.png")
-    plt.savefig(graph_path)
-    plt.close()
+    # plt.plot(cor_x, cor_y)
+    # plt.title("Mouse Tracking")
+    # plt.xlabel("X-coordinate")
+    # plt.ylabel("Y-coordinate")
+    # plt.xlim([0, 1600])
+    # plt.ylim([0, 700])
+    # graph_path = os.path.join(folder_path, f"{label}_{timestamp}_graph.png")
+    # plt.savefig(graph_path)
+    # plt.close()
 
 
 def write_mouse_tracking_to_csv(userId, initialEmotion, age, gender, occupation, computerOpSkill, label, stimulus, response, responseTime, currentEmotion, mouse_data_list, no_of_clicks, mouse_clicks_list, mouse_downtimes_list, click_moments_list, speed, velocity):
