@@ -375,8 +375,8 @@
     <div id="productsCard" class="Prod-card" style="display: none;">
         <h1 style="text-align: center; color: #333;">Select a product </h1>
         <div class="grid-container" style="margin-top: 50px;">
-
-            <div class="grid-item fade-in" onclick="handleCardClick('dove');" style="cursor: pointer;" > 
+    
+            <div class="grid-item fade-in" onclick="handleCardClick('dove');" data-product="dove" style="cursor: pointer;"> 
                 <div class="Prodcard-body">
                     <img src="../static/images/dove_soap.jpg" class="Prodcard-img-top" alt="Dove Soap">
                     <div>
@@ -389,7 +389,7 @@
             <!-- Repeat similar structure for other grid items -->
     
     
-            <div class="grid-item fade-in" onclick="handleCardClick('Fastrack');" style="cursor: pointer;"> 
+            <div class="grid-item fade-in" onclick="handleCardClick('Fastrack');" data-product="Fastrack"  style="cursor: pointer;"> 
                 <div class="Prodcard-body">
                     <img src="../static/images/fastrack.jpg" class="Prodcard-img-top" alt="...">
                     <h5 class="Prodcard-title">Fastrack Watches</h5>
@@ -398,7 +398,7 @@
                 </div>
             </div>
     
-            <div class="grid-item fade-in" onclick="handleCardClick('Samsung');"  style="cursor: pointer;"> 
+            <div class="grid-item fade-in" onclick="handleCardClick('Samsung');" data-product="Samsung"  style="cursor: pointer;"> 
                 <div class="Prodcard-body">
                     <img src="../static/images/sams_pho.avif" class="Prodcard-img-top" alt="...">
                     <h5 class="Prodcard-title">Samsung smartphones</h5>
@@ -414,7 +414,7 @@
                 </div>
             </div>
      -->
-            <div class="grid-item fade-in" onclick="handleCardClick('HP');"  style="cursor: pointer;"> 
+            <div class="grid-item fade-in" onclick="handleCardClick('HP');" data-product="HP" style="cursor: pointer;"> 
                 <div class="Prodcard-body">
                     <img src="../static/images/hp.jpg" class="Prodcard-img-top" alt="...">
                     <h5 class="Prodcard-title">HP Laptops</h5>
@@ -1010,6 +1010,7 @@ function startNextButtonTimer() {
         // Set localStorage variable
         localStorage.setItem('selectedProduct', productName);
         // Hide products card and show questions
+
         selectedProduct = productName;
 
         // Remove selection from all cards
