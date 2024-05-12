@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <title>Survey Form</title>
+
+    <style>
+
+    .flask-image{
+    text-align: center;
+    /* width: 200px; Set a fixed width */
+    height: 400px; /* Set a fixed height */
+    object-fit: cover; /* Maintain aspect ratio while covering the specified dimensions */
+    margin-top: 10px;
+    margin-bottom: 20px;
+    max-width: none; /* Remove the max-width property */
+    }
+    
+    body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .header {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 5px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+    }
+
+    .card {
+        margin-top: 40px; /* Adjusted margin-top to accommodate the fixed header */
+        width: 60%;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .card1 {
+        margin-top: 40px; /* Adjusted margin-top to accommodate the fixed header */
+        width: 60%;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-in-out;
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align: justify;
+    }
+
+    .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+    /* Alert styling */
+            .alert {
+                        position:fixed;
+                        bottom: 90px;
+                        right: 30px;
+                        background-color: #4CAF50;
+                        color: #f8f0f0;
+                        padding: 15px;
+                        border-radius: 5px;
+                        display: none; /* Hide initially */
+                        z-index: 1;
+                    }
+
+                    /* Different styles based on the type of alert */
+                    .alert-success {
+                        background-color: #4CAF50;
+                    }
+
+                    .alert-endsur {
+                        background-color: #4CAF50;
+                    }
+                    
+                    .alert-warning {
+                        background-color: #FFC107;
+                    }
+
+                    .alert-danger {
+                        background-color: #FF5722;
+                    }
+
+    .Inst-card{
+        margin-top: 40px; /* Adjusted margin-top to accommodate the fixed header */
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #ddd; /* Add border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+    animation: fadeIn 1s ease-in-out;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+    max-width: 1000px;
+    max-height: 600px;
+
+    }
+
+
+    /* instruction page styling  */
+    /* .page-column {
+    width: calc(20% - 20px); /* Adjust width as needed */
+
+    
+
+
+
+
+
+
+
+
+    /* product card style  */
+
+    .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+
+        .grid-item {
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            height: 350px; /* Adjust the height as needed */
+        }
+
+        .grid-item:hover .Prodcard-img-top {
+            transform: scale(1.1);
+        }
+
+        .Prodcard-img-top {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .Prodcard-body {
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .Prodcard-title {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .Prodcard-text {
+            margin-top: 10px;
+            color: #666;
+        }
+
+        .btn {
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }   
+
+        .Prod-card{
+        margin-top: 40px; /* Adjusted margin-top to accommodate the fixed header */
+        width: 60%;
+        margin: 0 auto;
+        padding: 20px;
+        width: 80%;
+        box-sizing: border-box;
+        border-radius: 8px;
+        background-color: #fff;
+        border: 1px solid #ddd; /* Add border */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+        animation: fadeIn 1s ease-in-out;
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align: justify;
+        max-width: 2000px;
+        max-height: 600px;
+        }
+
+
+        .selected {
+        border: 2px solid #007bff; /* Change border color for selected card */
+        }
+
+    /* product card style end */
+
+
+
+
+
+
+
+
+    </style>
+
+</head>
+
+<body>
+    <!-- <div class="header">
+        <h2>SURVEY FORM </h2>
+    </div> -->
+
+     <!-- Alert container -->
+     <div id="alertContainer" class="alert"></div>
+
+     <div id="instructions-card" class="Inst-card" style="display: flex; flex-direction: row; justify-content: space-between;">
+        <h1 style="text-align: center; color: #333;">Survey Form Instructions</h1>
+
+        <p>
+            Welcome to our Data Collection Survey, designed to gather essential information for building a predictive model for human emotions based on mouse tracking data, response time, and other factors. Throughout the survey, you'll watch images and videos designed to induce emotions, followed by answering questions. Your honest responses and mouse movements will be recorded for our research analysis. Thank you for joining us on this fascinating journey!
+        </p>
+
+        <div class="page-column">
+            <p><b>Important requirements to fill survey</b></p>
+            <div style="text-align: center;">
+                <div style="display: inline-block; margin-right: 20px; border: 1px solid #ccc; padding: 10px; width: 200px; height: 250px;">
+                    <img src="../static/images/mou.jpg" alt="use mouse only" style="width:200px;height: 225px;float: left;">
+                    <p style="margin-top: 10px;">You will <b>use only</b> mouse to fill the survey entirely</p>
+                </div>
+                <div style="display: inline-block; margin-right: 20px; border: 1px solid #ccc; padding: 10px; width: 200px; height: 250px;">
+                    <img src="../static/images/nomo.jpg" alt="use mouse only" style="width:200px;height: 225px;float: left;">
+                    <p style="margin-top: 10px;">Please <b>DO NOT</b> use mobile to fill survey</p>
+                </div>
+                <div style="display: inline-block; border: 1px solid #ccc; padding: 10px; width: 200px; height: 250px;">
+                    <img src="../static/images/nolap.jpg" alt="use mouse only" style="width:200px;height: 225px;float: left;">
+                    <p style="margin-top: 10px;">Please <b>DO NOT</b> use touchpad to fill survey</p>
+                </div>
+            </div>
+        </div>
+<br>
+<!-- <div class="text-arrow" style="text-align: center;">
+    <img src="../static/images/arr.gif" alt="use mouse only" style="width:30px;height:25px;display: block; margin: auto;">
+</div> -->
+
+        <button onclick="showProducts()">Start Survey</button>
+    </div>
+
+
+    <div id="infoForm" class="card" style="display: none;">
+        <h1 style="text-align: center;">
+            Basic Info
+        </h1>
+        <form name="info-form">
+            <!-- onsubmit="return getValues()"> -->
+            <p>
+                Age:
+                <input required type="number" size="65"
+                    name="Age"
+                    placeholder="21"/>
+            </p>
+            <br />
+            <p>
+                Occupation:
+                <select value="" name="Occupation" required>
+                    <option value="">Select Occupation</option>
+                    <option value="Student">Student</option>
+                    <option value="Job with high Computer use">Job with high Computer use</option>
+                    <option value="Job with frequent Computer use">Job with frequent Computer use</option>
+                    <option value="Job with minimal Computer use">Job with minimal Computer use</option>
+                </select>
+            </p>
+            <br />
+            <p>
+                Gender: 
+                <select value="" name="Gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </p>
+            <br />
+            <p>
+                Computer Operating Skill: 
+                <select value="" name="ComputerOpSkill" required>
+                    <option value="">Select</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Expert">Expert</option>
+                </select>
+            </p>
+            <br />
+            <br />
+            <p>
+
+            <button onclick="getValues()">Next</button> <!-- Button to show the question form -->
+                
+                <!-- <input type="submit" value="Send"
+                    name="Submit" onsubmit="getValues()"/> -->
+
+
+                <input type="reset" value="Reset"
+                    name="Reset" />
+            </p>
+        </form> 
+    </div>  
+
+
+
+    <div id="intialEmotionCard" class="card" style="display: none;">
+        <h2>How are you feeling?</h2>
+        <div id="emotion-images">
+                <img onclick="getInitialEmotion('amusement')" src="{{ url_for('static', filename='images/emoji/amusement.png') }}" alt="Emotion 1" class="emotion-image">
+                <img onclick="getInitialEmotion('awe')" src="{{ url_for('static', filename='images/emoji/awe.png') }}" alt="Emotion 2" class="emotion-image">
+                <img onclick="getInitialEmotion('contentment')" src="{{ url_for('static', filename='images/emoji/contentment.png') }}" alt="Emotion 3" class="emotion-image">
+                <img onclick="getInitialEmotion('excitement')" src="{{ url_for('static', filename='images/emoji/excitement.png') }}" alt="Emotion 4" class="emotion-image">
+                <img onclick="getInitialEmotion('disgust')" src="{{ url_for('static', filename='images/emoji/disgust.png') }}" alt="Emotion 6" class="emotion-image">
+                <img onclick="getInitialEmotion('anger')" src="{{ url_for('static', filename='images/emoji/anger.png') }}" alt="Emotion 5" class="emotion-image">
+                <img onclick="getInitialEmotion('fear')" src="{{ url_for('static', filename='images/emoji/fear.png') }}" alt="Emotion 7" class="emotion-image">
+                <img onclick="getInitialEmotion('sadness')" src="{{ url_for('static', filename='images/emoji/sadness.png') }}" alt="Emotion 8" class="emotion-image">
+        </div>
+    </div>
+
+
+
+
+    <div id="productsCard" class="Prod-card" style="display: none;">
+        <h1 style="text-align: center; color: #333;">Select a product </h1>
+        <div class="grid-container" style="margin-top: 50px;">
+
+            <div class="grid-item fade-in" onclick="handleCardClick('dove');" style="cursor: pointer;" > 
+                <div class="Prodcard-body">
+                    <img src="../static/images/dove_soap.jpg" class="Prodcard-img-top" alt="Dove Soap">
+                    <div>
+                        <h5 class="Prodcard-title">Dove Soap</h5>
+                        <!-- <p class="Prodcard-text">Dove is a personal care brand owned by Unilever, a British consumer goods company.</p> -->
+                    </div>
+                    <!-- <a href="dove.html" class="btn">Take Survey</a> -->
+                </div>
+            </div>
+            <!-- Repeat similar structure for other grid items -->
+    
+    
+            <div class="grid-item fade-in" onclick="handleCardClick('Fastrack');" style="cursor: pointer;"> 
+                <div class="Prodcard-body">
+                    <img src="../static/images/fastrack.jpg" class="Prodcard-img-top" alt="...">
+                    <h5 class="Prodcard-title">Fastrack Watches</h5>
+                    <!-- <p class="Prodcard-text">Fastrack is an Indian fashion brand known for its trendy and affordable watches, aimed primarily at young adults and teenagers.</p> -->
+                    <!-- <a href="fastrack.html" class="btn btn-primary">Take Survey</a> -->
+                </div>
+            </div>
+    
+            <div class="grid-item fade-in" onclick="handleCardClick('Samsung');"  style="cursor: pointer;"> 
+                <div class="Prodcard-body">
+                    <img src="../static/images/sams_pho.avif" class="Prodcard-img-top" alt="...">
+                    <h5 class="Prodcard-title">Samsung smartphones</h5>
+                    <!-- <p class="Prodcard-text">Samsung is the world's largest manufacturer of smartphones since 2011.</p> -->
+                    <!-- <a href="samsung.html" class="btn btn-primary">Take Survey</a> -->
+                </div>
+            </div>
+    
+            <!-- <div class="grid-item fade-in" onclick="location.href='jbl.html';" style="cursor: pointer;"> 
+                <div class="Prodcard-body">
+                    <img src="../static/images/jbl_hp.jpg" class="Prodcard-img-top" alt="...">
+                    <h5 class="Prodcard-title">JBL Headphones</h5>
+                </div>
+            </div>
+     -->
+            <div class="grid-item fade-in" onclick="handleCardClick('HP');"  style="cursor: pointer;"> 
+                <div class="Prodcard-body">
+                    <img src="../static/images/hp.jpg" class="Prodcard-img-top" alt="...">
+                    <h5 class="Prodcard-title">HP Laptops</h5>
+                    <!-- <p class="Prodcard-text">HP Inc. is an American multinational information technology company headquartered in Palo Alto, California.</p> -->
+                    <!-- <a href="hp.html" class="btn btn-primary">Take Survey</a> -->
+                </div>
+            </div>
+    
+        </div>        
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="takeSurveyButton" class="btn btn-primary" onclick="takeSurvey()">Take Survey</button>
+        </div>
+
+    </div>
+
+    
+
+
+
+
+
+    <div id="imageSection" class="img-card{{ imageEmotionType }}" style="text-align:center;display: none;">
+        {% if randomImage %}
+            {% if randomImage.endswith('.jpg') or randomImage.endswith('.png') or randomImage.endswith('.jpeg') %}
+            <img src="{{ url_for('static', filename='images/Image_dataset/' + randomImage) }}" alt="Random Image" class="flask-image">
+
+                <!-- <video controls class="flask-video">
+                    <source src="{{ url_for('static', filename='images/Video_dataset/' + randomImage) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video> -->
+
+            {% else %}
+                <!-- <img src="{{ url_for('static', filename='images/Image_dataset/' + randomImage) }}" alt="Random Image" class="flask-image"> -->
+
+                <!--    <iframe width="560" height="315" src="https://www.youtube.com/embed/8L3QSt6f3dM?si=o0HcV1AN_GjfMyZ2&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+                
+                {{ randomImage | safe }}
+                
+            {% endif %}
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <button disabled id="next-button" class="button{{imageEmotionType}}" onclick="showQuestion()" style="width: 150px;">Wait [10]</button> <!-- Button to show the question form -->
+        {% else %}
+            <p>No media found.</p>
+        {% endif %}
+    </div>
+
+
+
+
+    <div id="questionSection" class="card-holder" style="display: none;">
+        <div class="que-card{{ imageEmotionType }}">
+            <h2 id="questionHeading"></h2>
+
+
+            <div class="button-container" style="margin-top: 50px;">
+
+                <form method="post" action="{{ url_for('submit') }}" id="response-form">
+                    <input type="hidden" name="userId" id="user-id-input">
+                    <input type="hidden" name="age" id="age-hidden-input">
+                    <input type="hidden" name="gender" id="gender-hidden-input">
+                    <input type="hidden" name="occupation" id="occupation-hidden-input">
+                    <input type="hidden" name="computerOpSkill" id="computerOpSkill-hidden-input">
+                    <input type="hidden" name="initialEmotion" id="initial-emotion-input">
+                    <input type="hidden" name="response" id="response-input">
+                    <input type="hidden" name="mouse_data" id="mouse-data-input">
+                    <input type="hidden" name="mouse_clicks" id="mouse-clicks-input">
+                    <input type="hidden" name="mouse_downtimes" id="mouse-downtimes-input">
+                    <input type="hidden" name="click_moments" id="click-moments-input">
+                    <input type="hidden" name="responseTime" id="response-time-input">
+                    <input type="hidden" name="currentEmotion" id="current-emotion-input">
+                    <!-- Add a new input field for the label -->
+                    <input type="hidden" name="label" id="label-input" value="{{ EmoLabel }}">
+                    <input type="hidden" name="stimulus" id="stimulus" value="{{ randomImage }}">
+                </form>
+                
+                    <button class="response-button{{ imageEmotionType }} response-button-left"  onclick="submitResponse('Yes')">Yes</button>
+                    <button class="response-button{{ imageEmotionType }} response-button-right"  onclick="submitResponse('No')">No</button>  
+            </div>
+            <br><br>
+        </div>
+    </div>  
+
+
+
+
+
+
+    <div id="currentEmotionCard" class="card" style="display: none;">
+        <h2>How do you feel after watching the image/video?</h2>
+        <div id="emotion-images">
+                <img onclick="getCurrentEmotion('amusement')" src="{{ url_for('static', filename='images/emoji/amusement.png') }}" alt="Emotion 1" class="emotion-image">
+                <img onclick="getCurrentEmotion('awe')" src="{{ url_for('static', filename='images/emoji/awe.png') }}" alt="Emotion 2" class="emotion-image">
+                <img onclick="getCurrentEmotion('contentment')" src="{{ url_for('static', filename='images/emoji/contentment.png') }}" alt="Emotion 3" class="emotion-image">
+                <img onclick="getCurrentEmotion('excitement')" src="{{ url_for('static', filename='images/emoji/excitement.png') }}" alt="Emotion 4" class="emotion-image">
+                <img onclick="getCurrentEmotion('disgust')" src="{{ url_for('static', filename='images/emoji/disgust.png') }}" alt="Emotion 6" class="emotion-image">
+                <img onclick="getCurrentEmotion('anger')" src="{{ url_for('static', filename='images/emoji/anger.png') }}" alt="Emotion 5" class="emotion-image">
+                <img onclick="getCurrentEmotion('fear')" src="{{ url_for('static', filename='images/emoji/fear.png') }}" alt="Emotion 7" class="emotion-image">
+                <img onclick="getCurrentEmotion('sadness')" src="{{ url_for('static', filename='images/emoji/sadness.png') }}" alt="Emotion 8" class="emotion-image">
+            
+        </div>
+        <br>
+        <!-- <p><a href="{{ url_for('results') }}">View Results</a></p> -->
+    </div>
+
+    <!-- <div class="footer">
+        <p>&copy; 2023 Kiran Patil. All rights reserved.</p>
+    </div> -->
+
+    <script>
+        let startTime, endTime, responseTime;
+        function getStartTime() {
+            startTime = new Date().getTime()
+        }
+
+        function getEndTime() {
+            endTime = new Date().getTime()
+        }
+
+        function calculateDifference() {
+            return endTime - startTime;
+        }
+
+           let isFlagTrue = true;
+
+        function showInfoForm() {
+            document.getElementById('instructions-card').style.display = 'none';
+            document.getElementById('infoForm').style.display = 'block';
+
+        }
+
+        function showProducts() {
+            document.getElementById('instructions-card').style.display = 'none';
+            document.getElementById('productsCard').style.display = 'block';
+
+        }
+
+
+        function showProducts() {
+            document.getElementById('instructions-card').style.display = 'none';
+            document.getElementById('productsCard').style.display = 'block';
+
+        }
+
+
+        function showQuestion() {
+            getStartTime();   
+            document.getElementById('imageSection').style.display = 'none';
+            document.getElementById('questionSection').style.display = 'block';
+           
+            document.addEventListener("mousemove", function (event) {
+                currTime= new Date().getTime();
+                var x = event.clientX;
+                var y = event.clientY;
+                mouseData.push({ x: x, y: y,t:currTime-startTime });
+            });
+
+            document.addEventListener("mousedown", function (event) {
+                clickStartTime = Date.now();
+                var x = event.clientX;
+                var y = event.clientY;
+                mouseClicks.push({ x: x, y: y });
+            })
+
+            document.addEventListener('mouseup', () => {
+                const clickUpMoment = Date.now();
+                const downtime = clickUpMoment - clickStartTime;
+                mouseDowntimes.push(downtime);
+                const clickMoment = clickUpMoment - startTime;
+                clickMoments.push(clickMoment);
+            });
+        }
+
+        function showInitialEmotionCard(){
+            document.getElementById('infoForm').style.display = 'none';
+            document.getElementById('intialEmotionCard').style.display = 'block';
+
+            var localStorageValue = localStorage.getItem('alertType');
+            // Display the alert based on the local storage value
+            if (localStorageValue) {
+                displayAlert(localStorageValue);
+            }
+        }
+
+        let form = document.forms["info-form"];
+        form.addEventListener("submit", getValues);
+
+
+
+// new code added for session management 
+
+// Function to store user data in local storage
+function storeUserData(userId, age, gender, occupation, computerOpSkill, initialEmotion) {
+    localStorage.setItem('userId', userId);
+    localStorage.setItem('age', age);
+    localStorage.setItem('gender', gender);
+    localStorage.setItem('occupation', occupation);
+    localStorage.setItem('computerOpSkill', computerOpSkill);
+    localStorage.setItem('initialEmotion', initialEmotion);
+}     
+        
+function getUserData() {
+    return {
+        userId: localStorage.getItem('userId'),
+        age: localStorage.getItem('age'),
+        gender: localStorage.getItem('gender'),
+        occupation: localStorage.getItem('occupation'),
+        computerOpSkill: localStorage.getItem('computerOpSkill'),
+        initialEmotion: localStorage.getItem('initialEmotion')
+    };
+}     
+       
+// Update getValues() function to store user data
+function getValues(event){
+    event.preventDefault();
+
+    // Get user input
+    let age = this.Age.value;
+    let gender = this.Gender.value;
+    let occupation = this.Occupation.value;
+    let computerOpSkill = this.ComputerOpSkill.value;
+
+    // Generate unique userId
+    let dateTime = new Date().toLocaleDateString("en-IN", {
+        day:    '2-digit',
+        month:  '2-digit',
+        year:   '2-digit',
+        hour:   '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+    let userId = dateTime.replace(/\/|,|:| |AM|PM/g,"");
+
+    // Store user data in local storage
+    storeUserData(userId, age, gender, occupation, computerOpSkill, 'k');
+
+    localStorage.setItem('alertType', 'success');
+
+    // Retrieve data from local storage
+    let userData = getUserData(); // Assuming getUserData() retrieves user data from local storage
+
+    // Set elements on the document using the retrieved data
+    document.getElementById('user-id-input').value = userData.userId;
+    document.getElementById('age-hidden-input').value = userData.age;
+    document.getElementById('gender-hidden-input').value = userData.gender;
+    document.getElementById('occupation-hidden-input').value = userData.occupation;
+    document.getElementById('computerOpSkill-hidden-input').value = userData.computerOpSkill;
+    document.getElementById('initial-emotion-input').value = userData.initialEmotion;
+
+    // Proceed to next step
+    showInitialEmotionCard();
+    
+}
+
+// Update getInitialEmotion() function to store initial emotion
+function getInitialEmotion(emotion) {
+    let userData = getUserData();
+    storeUserData(userData.userId, userData.age, userData.gender, userData.occupation, userData.computerOpSkill, emotion);
+
+    // Continue with the survey
+    document.getElementById('intialEmotionCard').style.display = 'none';
+    document.getElementById('imageSection').style.display = 'block';
+
+    // Start the timer for the next button
+    startNextButtonTimer();
+} 
+        
+// Function to start the timer for the Next button
+function startNextButtonTimer() {
+    let button = document.getElementById('next-button');
+    let time = 10;
+    let timer = setInterval(function() {
+        if (time > 0) {
+            time--;
+            button.disabled = true;
+            button.innerHTML = 'Wait [' + time + ']';
+        }
+        if (time === 0) {
+            button.disabled = false;
+            button.innerHTML = 'Next';
+            clearInterval(timer); // Stop the timer
+        }
+    }, 1000);
+}        
+        
+   
+
+
+
+        // Function to simulate mouse movement to the center of the screen
+        // function moveCursorToCenter() {
+        //     const event = new MouseEvent('mousemove', {
+        //         clientX: window.innerWidth / 2,
+        //         clientY: window.innerHeight / 2,
+        //         bubbles: true,
+        //     });
+
+        //     // Dispatch the event
+        //     document.dispatchEvent(event);
+        // }
+
+        // // Call the function on page load
+        // window.onload = moveCursorToCenter;
+
+        var mouseData = [];
+        var mouseClicks = [];
+        var mouseDowntimes = [];
+        var clickMoments = [];
+        let clickStartTime = 0; 
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector('.card').classList.add('fade-in');
+        
+
+        
+
+            //code to display form based on setvalue local storage value 
+            if (!localStorage.getItem('visitCount')) {
+                // Render the form code
+                document.getElementById('instructions-card').style.display = 'block';
+                var localStorageValue = localStorage.getItem('alertType');
+                // Display the alert based on the local storage value
+                if (localStorageValue) {
+                    displayAlert(localStorageValue);
+                }
+            }
+            else {
+                document.getElementById('instructions-card').style.display = 'none';
+                document.getElementById('imageSection').style.display = 'block';
+
+                var button = document.getElementById('next-button');
+                var time = 10;
+                var timer = setInterval(function() {
+                    if (time > 0) {
+                        time--;
+                        button.disabled = true;
+                        button.innerHTML = 'Wait [' + time + ']';
+                    }
+                    if (time === 0) {
+                        button.disabled = false;
+                        button.innerHTML = 'Next';
+                    }
+                }, 1000);
+            }
+
+            // Initialize mouse tracking array
+            // Track mouse movements
+             /*document.addEventListener("mousemove", function (event) {
+            var x = event.clientX; 
+            var y = event.clientY;
+            mouseData.push({ x: x, y: y });
+           // console.log('Mouse Data:', mouseData);
+            //console.log('Mouse Data:', JSON.stringify(mouseData)); 
+            });*/
+        
+
+            // Submit mouse data when the form is submitted
+            document.getElementById('response-form').addEventListener('submit', function () {
+                document.getElementById('mouse-data-input').value = JSON.stringify(mouseData);
+                document.getElementById('mouse-clicks-input').value = JSON.stringify(mouseClicks);
+                document.getElementById('mouse-downtimes-input').value = JSON.stringify(mouseDowntimes);
+                document.getElementById('click-moments-input').value = JSON.stringify(clickMoments);
+
+               // console.log('Mouse Data:', JSON.stringify(mouseData)); // Log mouse data for debugging
+                //console.log("test");
+            });
+        });
+        
+        function submitResponse(response) {
+            getEndTime();
+            responseTime = calculateDifference();
+
+            let userData = getUserData(); // Assuming getUserData() retrieves user data from local storage
+            
+            // Set elements on the document using the retrieved data
+            document.getElementById('user-id-input').value = userData.userId;
+            document.getElementById('age-hidden-input').value = userData.age;
+            document.getElementById('gender-hidden-input').value = userData.gender;
+            document.getElementById('occupation-hidden-input').value = userData.occupation;
+            document.getElementById('computerOpSkill-hidden-input').value = userData.computerOpSkill;
+            document.getElementById('initial-emotion-input').value = userData.initialEmotion;
+
+
+            document.getElementById('response-time-input').value = responseTime;
+            document.getElementById('response-input').value = response;
+            document.getElementById('mouse-data-input').value = JSON.stringify(mouseData);
+            document.getElementById('mouse-clicks-input').value = JSON.stringify(mouseClicks);
+            document.getElementById('mouse-downtimes-input').value = JSON.stringify(mouseDowntimes);
+            document.getElementById('click-moments-input').value = JSON.stringify(clickMoments);
+            document.getElementById('questionSection').style.display = 'none';
+            document.getElementById('currentEmotionCard').style.display = 'block';
+        }
+
+        function getCurrentEmotion(emotion) {
+            document.getElementById('current-emotion-input').value = emotion;
+            document.getElementById('response-form').submit();
+        }
+
+        // below functions displays alert
+        function displayAlert(type) {
+            var alertContainer = document.getElementById('alertContainer');
+            var alertText = '';
+
+            // Set alert text based on the type
+            switch (type) {
+                case 'success':
+                    alertText = 'Your survey has began successfully ';
+                    break;
+                case 'endsur':
+                    alertText = 'Thank you for filling out this survey 😊😊';
+                    break;
+                case 'warning':
+                    alertText = 'Warning: Proceed with caution.';
+                    break;
+                case 'danger':
+                    alertText = 'Error: Something went wrong.';
+                    break;
+                default:
+                    alertText = 'Default Alert.';
+                    break;
+            }
+
+            // Set the alert text and style
+            alertContainer.innerHTML = alertText;
+            alertContainer.className = 'alert alert-' + type;
+
+            // Display the alert
+            alertContainer.style.display = 'block';
+
+            // Clear local storage value after 2 seconds
+            setTimeout(function () {
+                alertContainer.style.display = 'none'; // Hide the alert
+                localStorage.removeItem('alertType'); // Remove 'alertType' from local storage
+            }, 2000); // 2000 milliseconds (2 seconds)
+        }
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let gridItems = document.querySelectorAll('.grid-item');
+            gridItems.forEach(function(item) {
+                item.classList.add('fade-in');
+            });
+        });
+
+
+
+
+        
+        // Script for product card
+
+
+
+        const dove_questions = [
+            "Have you ever used Dove soap for your daily skincare routine?",
+            "Do you believe Dove soap effectively moisturizes your skin?",
+            "Would you recommend Dove soap to a friend or family member?",
+            "Do you think Dove soap is suitable for all skin types?",
+            "Have you noticed a positive difference in your skin texture after using Dove soap?",
+            "Do you trust Dove as a brand for skincare products?",
+            "Would you prefer Dove soap over other brands for sensitive skin?",
+            "Do you find the fragrance of Dove soap appealing?",
+            "Have you ever switched from another soap brand to Dove? ",
+            "Do you think Dove soap contributes to a more sustainable and eco-friendly beauty routine?",
+            "Would you be interested in trying new variants or formulations of Dove soap?",
+            "Would you be interested in personalized skincare recommendations from Dove based on your skin type?",
+            "Would you consider Dove soap as a staple product in your skincare routine?",
+            "Do you think Dove soap effectively cleanses your skin without over-drying it?",
+            "Do you think Dove soap provides value for money in terms of its quality and effectiveness?",
+            "Do you think Dove soap packaging is environmentally friendly?"
+        ];
+
+
+        const fastrack_questions = [
+        "Have you ever owned or worn a Fastrack watch?",
+        "Do you believe Fastrack watches offer stylish and trendy designs?",
+        "Would you recommend Fastrack watches to friends or family members?",
+        "Do you think Fastrack watches provide accurate timekeeping?",
+        "Have you noticed a positive difference in the durability of Fastrack watches?",
+        "Do you trust Fastrack as a brand for wristwatches and accessories?",
+        "Would you prefer Fastrack watches over other brands for their unique designs?",
+        "Do you find the pricing of Fastrack watches reasonable for the quality they offer?",
+        "Would you be willing to pay a slightly higher price for a limited edition Fastrack watch?",
+        "Have you ever switched from another watch brand to Fastrack? ",
+        "Do you think Fastrack watches cater well to different age groups and styles?",
+        "Would you be interested in trying new collections or features introduced by Fastrack in their watches?",
+        "Do you believe Fastrack watches are water-resistant to a satisfactory level?",
+        "Would you choose Fastrack watches over other brands based on their strap materials and comfort?",
+        "Do you think Fastrack watches are suitable for both formal and casual occasions?",
+        "Have you ever participated in a Fastrack watches promotional campaign or event?",
+        "Would you be interested in customizable features or personalization options for your Fastrack watch?",
+        "Do you think Fastrack watches packaging is visually appealing?",
+        "Would you consider Fastrack watches as a fashionable accessory in your daily wear?",
+        "Do you believe Fastrack watches provide value for money in terms of their style and functionality?"
+
+        ];
+
+
+        const hp_questions = [
+        "Have you ever used an HP laptop?",
+        "Do you believe HP laptops offer reliable and durable hardware?",
+        "Would you recommend HP laptops to friends or family members?",
+        "Do you think HP laptops provide a satisfactory level of performance for your needs?",
+        "Have you noticed a positive difference in the display quality of HP laptops?",
+        "Do you trust HP as a brand for laptops and computing devices?",
+        "Would you prefer HP laptops over other brands for their design and aesthetics?",
+        "Do you find the pricing of HP laptops reasonable for the specifications they offer?",
+        "Would you be willing to pay a premium for a high-end HP laptop with advanced features?",
+        "Have you ever switched from another laptop brand to HP? ",
+        "Do you think HP laptops consistently deliver good battery life?",
+        "Would you be interested in trying new models or features introduced by HP in their laptops?",
+        "Do you believe HP laptops provide a user-friendly and intuitive operating system?",
+        "Would you choose HP laptops over other brands based on their build quality and durability?",
+        "Do you think HP laptops are suitable for both professional and personal use?",
+        "Would you be interested in customizable features or accessories for your HP laptop?",
+        "Do you think HP laptops packaging is visually appealing?",
+        "Do you believe HP laptops provide value for money in terms of their features and reliability?"
+
+                ];
+
+
+        const jbl_questions = [
+        "Have you ever owned or used JBL headphones for personal audio listening?",
+        "Do you believe JBL headphones deliver high-quality sound and audio performance?",
+        "Would you recommend JBL headphones to friends or family members?",
+        "Do you think JBL headphones provide comfortable and ergonomic designs for extended use?",
+        "Have you noticed a significant difference in audio clarity and bass when using JBL headphones?",
+        "Do you trust JBL as a brand for audio and headphone products?",
+        "Would you prefer JBL headphones over other brands for their durability and build quality?",
+        "Do you find the wireless connectivity features of JBL headphones reliable and convenient?",
+        "Would you be willing to pay a premium for JBL headphones compared to other brands?",
+        "Have you ever switched from another headphone brand to JBL? ",
+        "Do you think JBL headphones offer a good balance between affordability and audio performance?",
+        "Would you be interested in trying new models or features introduced by JBL in their headphones?",
+        "Do you believe JBL headphones effectively block external noise for an immersive listening experience?",
+        "Would you choose JBL headphones over other brands based on their battery life and charging features?",
+        "Do you think JBL headphones are suitable for various activities, such as workouts or travel?",
+        "Would you be interested in customizable features or accessories for your JBL headphones?",
+        "Do you think JBL headphones packaging is environmentally friendly?",
+        "Would you consider JBL headphones as an essential accessory for your daily activities?",
+        "Do you believe JBL headphones provide value for money in terms of their quality and features?"
+
+        ];
+
+
+
+        const samsu_questions = [
+        "Have you ever owned or used a Samsung smartphone?",
+        "Do you believe Samsung smartphones offer advanced and innovative features?",
+        "Would you recommend Samsung smartphones to friends or family members?",
+        "Do you think Samsung smartphones provide a user-friendly interface and experience?",
+        "Have you noticed a positive difference in the camera quality of Samsung smartphones?",
+        "Do you trust Samsung as a brand for reliable and durable smartphones?",
+        "Would you prefer Samsung smartphones over other brands for their display quality?",
+        "Do you find the pricing of Samsung smartphones reasonable for the features they offer?",
+        "Would you be willing to pay a premium for the latest flagship Samsung smartphone?",
+        "Have you ever switched from another smartphone brand to Samsung? If yes, was it a positive change?",
+        "Do you think Samsung smartphones consistently deliver good performance and speed?",
+        "Would you be interested in trying new models or features introduced by Samsung in their smartphones?",
+        "Do you believe Samsung smartphones provide satisfactory battery life?",
+        "Would you choose Samsung smartphones over other brands based on their build quality and durability?",
+        "Do you think Samsung smartphones are suitable for both work and entertainment purposes?",
+        "Would you be interested in customizable features or accessories for your Samsung smartphone?",
+        "Do you think Samsung smartphones packaging is environmentally friendly?",
+        "Would you consider Samsung smartphones as an essential device in your daily life?",
+        "Do you believe Samsung smartphones provide value for money in terms of their features and performance?"
+        ];
+
+
+
+
+
+
+
+
+
+        let selectedProduct = null;
+
+        
+        function handleCardClick(productName) {
+       
+        // Set localStorage variable
+        localStorage.setItem('selectedProduct', productName);
+        // Hide products card and show questions
+        selectedProduct = productName;
+
+        // Remove selection from all cards
+        const gridItems = document.querySelectorAll('.grid-item');
+        gridItems.forEach(item => {
+            item.classList.remove('selected');
+        });
+
+        // Add selection to clicked card
+        const clickedCard = document.querySelector(`[data-product="${productName}"]`);
+        clickedCard.classList.add('selected');
+
+        // document.getElementById('productsCard').style.display = 'none';
+        // document.getElementById('questionSection').style.display = 'block';
+        
+        }
+
+        function takeSurvey() {
+        showQuestions(selectedProduct);
+        }
+
+        function showQuestions(productName) {
+
+            getStartTime();   
+            document.getElementById('productsCard').style.display = 'none';
+            document.getElementById('questionSection').style.display = 'block';
+           
+            document.addEventListener("mousemove", function (event) {
+                currTime= new Date().getTime();
+                var x = event.clientX;
+                var y = event.clientY;
+                mouseData.push({ x: x, y: y,t:currTime-startTime });
+            });
+
+            document.addEventListener("mousedown", function (event) {
+                clickStartTime = Date.now();
+                var x = event.clientX;
+                var y = event.clientY;
+                mouseClicks.push({ x: x, y: y });
+            })
+
+            document.addEventListener('mouseup', () => {
+                const clickUpMoment = Date.now();
+                const downtime = clickUpMoment - clickStartTime;
+                mouseDowntimes.push(downtime);
+                const clickMoment = clickUpMoment - startTime;
+                clickMoments.push(clickMoment);
+            });
+
+
+            const questionHeading = document.getElementById('questionHeading');
+
+            let questions;
+            switch (productName) {
+                case 'dove':
+                    questions = dove_questions;
+                    break;
+                case 'Fastrack':
+                    questions = fastrack_questions;
+                    break;
+                // Add cases for other products if needed
+
+
+                case 'hp':
+                    questions = fastrack_questions;
+                    break;
+
+
+                case 'HP':
+                questions = hp_questions;
+                break;
+
+                    
+                case 'Samsung':
+                questions = samsu_questions;
+                break;                
+
+
+                
+
+
+                default:
+                    questions = [];
+            }
+
+            // Randomly select a question
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            const selectedQuestion = questions[randomIndex];
+
+            // Set the selected question as the heading
+            questionHeading.textContent = selectedQuestion;
+
+            // Set other form values or perform additional actions as needed
+            // ...
+        }
+
+
+    </script>
+</body>
+</html>

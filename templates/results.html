@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <title>Survey Results</title>
+</head>
+<body>
+    <div class="card">
+    <h1>Survey Results</h1>
+    <p>{{ question }}</p>
+    <!-- <ul>
+        {% for response in responses %}
+            <li>{{ response }}</li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+        {% for label in labels %}
+            <li>{{ label }}</li>
+        {% endfor %}
+    </ul> -->
+
+    <ul>
+        {% for response, label, responseTime, currentEmotion in zipped_data %}
+            <li>{{ response }} - {{ label }} - {{ responseTime }} - {{currentEmotion}}</li>
+        {% endfor %}
+    </ul>
+    
+    <p><a href="{{ url_for('index') }}" onclick="incrementAndCheckVisitCount()">Back to Survey</a></p>
+</div>
+
+<script>
+    function incrementAndCheckVisitCount() {
+        // Increment visitCount in localStorage
+        let visitCount = parseInt(localStorage.getItem('visitCount')) || 0;
+        visitCount++;
+
+        // Check if visitCount exceeds 8
+        if (visitCount >= 8) {
+            // Remove visitCount from localStorage
+            localStorage.setItem('alertType', 'endsur')
+            localStorage.removeItem('visitCount');
+        } else {
+            // Update visitCount in localStorage
+            localStorage.setItem('visitCount', visitCount);
+        }
+    }
+</script>
+</body>
+</html>
