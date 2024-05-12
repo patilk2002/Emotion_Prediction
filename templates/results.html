@@ -7,6 +7,42 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
     <title>Survey Results</title>
+    <style>
+        /* Button styles */
+        .btn {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            margin-bottom: 0;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            transition: all 0.15s ease-in-out;
+            text-decoration: none;
+        }
+
+        /* Primary button color */
+        .btn-primary {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        /* Button hover effect */
+        .btn:hover {
+            color: #fff;
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+
+
+
 </head>
 <body>
     <div class="card">
@@ -46,7 +82,14 @@
     </script>
 
 
-    <p><a href="{{ url_for('index') }}" onclick="incrementAndCheckVisitCount()">Continue Survey ....</a></p>
+<div style="text-align: center; margin-top: 20px;">
+    <a href="{{ url_for('index') }}" onclick="incrementAndCheckVisitCount()" class="btn btn-primary" style="width: 150px; text-align: center;">Continue Survey ...</a>
+</div>
+        <!-- <div style="text-align: center; margin-top: 20px;">
+            <button id="takeSurveyButton" class="btn btn-primary" onclick="takeSurvey()" style="width: 150px;">Take Survey</button>
+        </div> -->
+
+
 </div>
 
 <script>
@@ -65,6 +108,12 @@
             localStorage.setItem('visitCount', visitCount);
         }
     }
+
+    function takeSurvey() {
+        // Redirect to the desired URL
+        window.location.href = "{{ url_for('index') }}";
+    }
+
 </script>
 </body>
 </html>
