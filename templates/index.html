@@ -426,7 +426,7 @@
         </div>        
 
         <div style="text-align: center; margin-top: 20px;">
-            <button id="takeSurveyButton" class="btn btn-primary" onclick="takeSurvey()">Take Survey</button>
+            <button id="takeSurveyButton" class="btn btn-primary" onclick="takeSurvey()" style="width: 150px;">Take Survey</button>
         </div>
 
     </div>
@@ -740,6 +740,10 @@ function startNextButtonTimer() {
 
         
 
+            let selectedProduct = null;
+
+
+
             //code to display form based on setvalue local storage value 
             if (!localStorage.getItem('visitCount')) {
                 // Render the form code
@@ -751,8 +755,14 @@ function startNextButtonTimer() {
                 }
             }
             else {
+
+                if (localStorage.getItem('selectedProduct')) {
+                selectedProduct=localStorage.getItem('selectedProduct');
+                showQuestions(selectedProduct);
+                }
+
                 document.getElementById('instructions-card').style.display = 'none';
-                document.getElementById('imageSection').style.display = 'block';
+                document.getElementById('questionSection').style.display = 'block';
 
                 var button = document.getElementById('next-button');
                 var time = 10;
@@ -1002,7 +1012,6 @@ function startNextButtonTimer() {
 
 
 
-        let selectedProduct = null;
 
         
         function handleCardClick(productName) {
@@ -1011,7 +1020,7 @@ function startNextButtonTimer() {
         localStorage.setItem('selectedProduct', productName);
         // Hide products card and show questions
 
-        selectedProduct = productName;
+        selectedProduct = localStorage.getItem('selectedProduct');
 
         // Remove selection from all cards
         const gridItems = document.querySelectorAll('.grid-item');
