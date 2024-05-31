@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-
     <title>Survey Results</title>
     <style>
         /* Button styles */
@@ -39,82 +38,100 @@
             background-color: #0056b3;
             border-color: #0056b3;
         }
+
+        /* Circular progress bar styles */
+        .progress-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .progress-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: absolute;
+        }
+
+        /* Style for positioning the button at the bottom */
+        .bottom-button {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
     </style>
-
-
-
 </head>
 <body>
     <div class="card">
-    <h1>Survey Results</h1>
-    <p>{{ question }}</p>
-    <!-- <ul>
-        {% for response in responses %}
-            <li>{{ response }}</li>
-        {% endfor %}
-    </ul>
+        <h1>Survey progress </h1>
+        <p>{{ question }}</p>
 
-    <ul>
-        {% for label in labels %}
-            <li>{{ label }}</li>
-        {% endfor %}
-    </ul> -->
+        <div class="progress-circle" id="progressCircle">
+            <span class="progress-text" id="progressText">0%</span>
+        </div>
+        <br><br>
+        <p id="visitCount" style="text-align: center;"></p>
+    </div>
 
-    <!-- <ul>
-        {% for response, label, responseTime, currentEmotion in zipped_data %}
-            <li>{{ response }} - {{ label }} - {{ responseTime }} - {{currentEmotion}}</li>
-        {% endfor %}
-    </ul> -->
-    
-    <p id="visitCount"></p>
+    <!-- Continue button -->
+    <div class="bottom-button">
+        <a href="{{ url_for('index') }}" onclick="incrementAndCheckVisitCount()" class="btn btn-primary" style="width: 150px; text-align: center;">Continue</a>
+    </div>
 
     <script>
         // Retrieve visit count from localStorage
-        var visitCount = 7 - localStorage.getItem('visitCount');
+        var visitCount = localStorage.getItem('visitCount');
 
         // Check if visit count is null or undefined, set it to 0 if so
         if (!visitCount) {
             visitCount = 0;
+        } else {
+            visitCount = parseInt(visitCount);
         }
+
+        // Calculate the percentage of questions answered
+        var totalQuestions = 5;
+        var questionsAnswered = visitCount;
+        var progressPercentage = (questionsAnswered / totalQuestions) * 100;
+
+        // Determine the color based on progress
+        let progressColor;
+        if (progressPercentage <= 33) {
+            progressColor = '#ff0000'; // Red for 0-33%
+        } else if (progressPercentage <= 66) {
+            progressColor = '#ffa500'; // Orange for 34-66%
+        } else {
+            progressColor = '#008000'; // Green for 67-100%
+        }
+
+        // Update the progress circle and text
+        document.getElementById('progressCircle').style.background = `conic-gradient(#00ff7b ${progressPercentage}%, #e6e6e6 ${progressPercentage}%)`;
+        document.getElementById('progressText').innerText = `${Math.round(progressPercentage)}%`;
+
 
         // Update the visit count on the webpage
-        document.getElementById('visitCount').innerText = 'Questions remaining : ' + visitCount;
-    </script>
+        document.getElementById('visitCount').innerText = 'Questions remaining: ' + (totalQuestions - questionsAnswered);
 
+        function incrementAndCheckVisitCount() {
+            // Increment visitCount in localStorage
+            let visitCount = parseInt(localStorage.getItem('visitCount')) || 0;
+            visitCount++;
 
-<div style="text-align: center; margin-top: 20px;">
-    <br>
-    <a href="{{ url_for('index') }}" onclick="incrementAndCheckVisitCount()" class="btn btn-primary" style="width: 150px; text-align: center;">Continue Survey ...</a>
-</div>
-        <!-- <div style="text-align: center; margin-top: 20px;">
-            <button id="takeSurveyButton" class="btn btn-primary" onclick="takeSurvey()" style="width: 150px;">Take Survey</button>
-        </div> -->
-
-
-</div>
-
-<script>
-    function incrementAndCheckVisitCount() {
-        // Increment visitCount in localStorage
-        let visitCount = parseInt(localStorage.getItem('visitCount')) || 0;
-        visitCount++;
-
-        // Check if visitCount exceeds 8
-        if (visitCount >= 8) {
-            // Remove visitCount from localStorage
-            localStorage.setItem('alertType', 'endsur')
-            localStorage.removeItem('visitCount');
-        } else {
-            // Update visitCount in localStorage
-            localStorage.setItem('visitCount', visitCount);
+            // Check if visitCount exceeds total questions
+            if (visitCount >= 6) {
+                // Remove visitCount from localStorage
+                localStorage.setItem('alertType', 'endsur');
+                localStorage.removeItem('visitCount');
+            } else {
+                // Update visitCount in localStorage
+                localStorage.setItem('visitCount', visitCount);
+            }
         }
-    }
-
-    function takeSurvey() {
-        // Redirect to the desired URL
-        window.location.href = "{{ url_for('index') }}";
-    }
-
-</script>
+    </script>
 </body>
 </html>

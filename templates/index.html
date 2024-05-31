@@ -1114,6 +1114,14 @@ function startNextButtonTimer() {
 
             // Set other form values or perform additional actions as needed
             // ...
+
+        // var visitCount = localStorage.getItem('visitCount');
+
+        // Check if visit count is null or undefined, set it to 0 if so
+        if (!localStorage.getItem('visitCount')) {
+            localStorage.setItem('visitCount', 1);
+        }
+
         }
 
 
